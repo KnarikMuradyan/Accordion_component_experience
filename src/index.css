@@ -19,7 +19,7 @@
   }
   
   .item {
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 3px 3px 8px gray;
     padding: 20px 24px;
     padding-right: 48px;
     cursor: pointer;
@@ -36,7 +36,7 @@
   .number {
     font-size: 24px;
     font-weight: 500;
-    color: #ced4da;
+    color: #087f5b ;
   }
   
   .title,
@@ -67,7 +67,7 @@
   }
   
   .open .number,
-  .open .text {
+  .open .title {
     color: #087f5b;
   }
   
