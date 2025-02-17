@@ -8,22 +8,18 @@ const faqs = [
             " Front-end development focuses on building the visual and interactive aspects of a website or web app. It involves using languages like HTML, CSS, and JavaScript to create user-friendly interfaces."
     },
     {
-        title: "What Technologies Do Front-End Developers Use?",
-        text:
-            `Front-end developers work with technologies such as:
-
-          🦖 HTML (for structure),
-          🦖 CSS (for styling),
-          🦖 JavaScript (for interactivity),
-          🦖Frameworks like React, Vue.js, and Angular,
-          🦖 CSS preprocessors like SASS,
-           🦖Version control tools like Git . `
-    },
-    {
         title: "How Do I Become a Front-End Developer?",
         text:
             "Start by learning HTML, CSS, and JavaScript. Then, explore frameworks, responsive design, and best practices. Build projects, contribute to open-source, and create a portfolio to showcase your work."
+    },
+    {
+        title: "What’s the Difference Between Front-End and Back-End Development?",
+        text:
+            `Front-end development focuses on the user interface and experience,
+             while back-end development handles server-side logic, databases, and APIs.
+              Together, they form a full-stack development process. `
     }
+    
 ];
 
 export default function App() {
@@ -35,17 +31,53 @@ export default function App() {
 }
 
 function Accordion({ data }) {
+
+    const [curOpen, setCurOpen] = useState(null);
+
     return <div className="accordion">
-        {data.map((el, i) => <AccordionItem title={el.title} text={el.text} num={i} key={i} />)}
+        {data.map((el, i) =>
+            <AccordionItem
+                curOpen={curOpen}
+                onOpen={setCurOpen}
+                title={el.title}
+                num={i}
+                key={i}
+            >
+                {el.text}
+            </AccordionItem>
+        )}
+
+        <AccordionItem
+            curOpen={curOpen}
+            onOpen={setCurOpen}
+            title="What Technologies Do Front-End Developers Use?"
+            num={3}
+            key="test"
+        >
+            <p>
+                <ul>
+                    <li>🦖 HTML (for structure)</li>
+                    <li>🦖 CSS (for styling)</li>
+                    <li>🦖 JavaScript (for interactivity)</li>
+                    <li>🦖 Frameworks like React, Vue.js, and Angular</li>
+                    <li>🦖 CSS preprocessors like SASS</li>
+                    <li>🦖 Version control tools like Git</li>
+                </ul>
+
+            </p>
+        </AccordionItem>
+
+
+
 
     </div>;
 }
 
-function AccordionItem({ num, title, text }) {
-    const [isOpen, setIsOpen] = useState(false)
+function AccordionItem({ num, title, curOpen, onOpen, children }) {
 
+    const isOpen = num === curOpen;
     function handleToggle() {
-        setIsOpen(isOpen => !isOpen);
+        onOpen(isOpen ? null :num);
     }
 
     return (
@@ -54,7 +86,7 @@ function AccordionItem({ num, title, text }) {
             <p className="title">{title}</p>
             <p className="icon">{isOpen ? " - " : "+"}</p>
 
-            {isOpen && <div className="content-box">{text}</div>}
+            {isOpen && <div className="content-box">{children}</div>}
 
         </div>
     )
